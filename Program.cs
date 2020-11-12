@@ -58,6 +58,11 @@ namespace DLTP_assignment_2
                 default: Console.WriteLine($"Fel: Fältet {fieldToChange} existerar inte."); break;
             }
         }
+        /* METHOD: Print
+         * PURPOSE: Print the data fields of a Person object
+         * PARAMETERS: none
+         * RETURN VALUE: none
+         */
         public void Print()
         {
             Console.WriteLine("{0}, {1}, {2}, {3}", name, address, phone, email);

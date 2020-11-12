@@ -10,6 +10,19 @@ namespace DLTP_assignment_2
     class Person
     {
         public string namn, adress, telefon, email;
+
+        public Person()
+        {
+            Console.WriteLine("Lägger till ny person");
+            Console.Write("  1. ange namn:    ");
+            namn = Console.ReadLine();
+            Console.Write("  2. ange adress:  ");
+            adress = Console.ReadLine();
+            Console.Write("  3. ange telefon: ");
+            telefon = Console.ReadLine();
+            Console.Write("  4. ange email:   ");
+            email = Console.ReadLine();
+        }
         public Person(string N, string A, string T, string E)
         {
             namn = N; adress = A; telefon = T; email = E;
@@ -25,6 +38,10 @@ namespace DLTP_assignment_2
                 case "email": email = newValue; break;
                 default: break;
             }
+        }
+        public void Print()
+        {
+            Console.WriteLine("{0}, {1}, {2}, {3}", namn, adress, telefon, email);
         }
     }
     class Program
@@ -46,7 +63,7 @@ namespace DLTP_assignment_2
                 }
                 else if (command == "ny")
                 {
-                    AddPersonToList(Dict);
+                    Dict.Add(new Person()); //Note: The default constructor will ask for user input. 
                 }
                 else if (command == "ta bort")
                 {
@@ -94,8 +111,7 @@ namespace DLTP_assignment_2
         {
             for (int i = 0; i < Dict.Count(); i++)
             {
-                Person P = Dict[i];
-                Console.WriteLine("{0}, {1}, {2}, {3}", P.namn, P.adress, P.telefon, P.email);
+                Dict[i].Print();
             }
         }
 
@@ -116,20 +132,6 @@ namespace DLTP_assignment_2
             {
                 Dict.RemoveAt(found);
             }
-        }
-
-        private static void AddPersonToList(List<Person> Dict)
-        {
-            Console.WriteLine("Lägger till ny person");
-            Console.Write("  1. ange namn:    ");
-            string name = Console.ReadLine();
-            Console.Write("  2. ange adress:  ");
-            string adress = Console.ReadLine();
-            Console.Write("  3. ange telefon: ");
-            string telefon = Console.ReadLine();
-            Console.Write("  4. ange email:   ");
-            string email = Console.ReadLine();
-            Dict.Add(new Person(name, adress, telefon, email));
         }
 
         private static List<Person> LoadAddressList()

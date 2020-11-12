@@ -15,7 +15,7 @@ namespace DLTP_assignment_2
         /* METHOD: Person (default constructor)
          * PURPOSE: Construct a Person object by asking the user to input values for each field.
          * PARAMETERS: none
-         * RETURN VALUE: The new Person that was constructed.
+         * RETURN VALUE: none
          */
         public Person()
         {
@@ -31,7 +31,7 @@ namespace DLTP_assignment_2
         /* METHOD: Person (constructor)
          * PURPOSE: Construct a Person object.
          * PARAMETERS: name, address, phone, email - strings to initialize the Person's fields
-         * RETURN VALUE: The new Person that was constructed.
+         * RETURN VALUE: none
          */
         public Person(string name, string address, string phone, string email)
         {
@@ -40,12 +40,11 @@ namespace DLTP_assignment_2
             this.phone = phone;
             this.email = email;
         }
-
         /* METHOD: EditField
          * PURPOSE: Change the name, address, phone or email to a new value.
          * PARAMETERS: fieldToChange - The name of the field the caller wants to change.
          *             newValue - The value the caller wants to change the field to.
-         * RETURN VALUE: 
+         * RETURN VALUE: none
          */
         public void EditField(string fieldToChange, string newValue)
         {
@@ -116,7 +115,7 @@ namespace DLTP_assignment_2
         }
 
         /* METHOD: EditPersonInList (static)
-         * PURPOSE: Edit the data of a Person in am address list.
+         * PURPOSE: Edit the data of a Person in an address list.
          * PARAMETERS: addressList - A list of Person objects
          * RETURN VALUE: none
          */

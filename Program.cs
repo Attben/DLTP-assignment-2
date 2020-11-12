@@ -72,7 +72,7 @@ namespace DLTP_assignment_2
          */
         static void Main()
         {
-            List<Person> addressList = LoadAddressList();
+            List<Person> addressList = LoadAddressList(@"..\..\address.lis");
 
             Console.WriteLine("Hej och välkommen till adresslistan");
             Console.WriteLine("Skriv 'sluta' för att sluta!");
@@ -174,21 +174,19 @@ namespace DLTP_assignment_2
         }
         /* METHOD: LoadAddressList (static)
          * PURPOSE: Load a List of Person objects from a file.
-         * PARAMETERS: none
+         * PARAMETERS: srcFilePath - Path to a file containing formatted data that can populate an address list.
          * RETURN VALUE: The List<Person> that was loaded.
          */
-        private static List<Person> LoadAddressList()
+        private static List<Person> LoadAddressList(string srcFilePath)
         {
             Console.Write("Laddar adresslistan ... ");
             List<Person> addressList = new List<Person>();
-            using (StreamReader fileStream = new StreamReader(@"..\..\address.lis"))
+            using (StreamReader fileStream = new StreamReader(srcFilePath))
             {
                 while (fileStream.Peek() >= 0)
                 {
                     string line = fileStream.ReadLine();
-                    // Console.WriteLine(line);
                     string[] word = line.Split('#');
-                    // Console.WriteLine("{0}, {1}, {2}, {3}", word[0], word[1], word[2], word[3]);
                     Person P = new Person(word[0], word[1], word[2], word[3]);
                     addressList.Add(P);
                 }

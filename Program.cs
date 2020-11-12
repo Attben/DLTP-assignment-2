@@ -19,22 +19,7 @@ namespace DLTP_assignment_2
     {
         static void Main(string[] args)
         {
-            List<Person> Dict = new List<Person>();
-
-            Console.Write("Laddar adresslistan ... ");
-            using (StreamReader fileStream = new StreamReader(@"..\..\address.lis"))
-            {
-                while (fileStream.Peek() >= 0)
-                {
-                    string line = fileStream.ReadLine();
-                    // Console.WriteLine(line);
-                    string[] word = line.Split('#');
-                    // Console.WriteLine("{0}, {1}, {2}, {3}", word[0], word[1], word[2], word[3]);
-                    Person P = new Person(word[0], word[1], word[2], word[3]);
-                    Dict.Add(P);
-                }
-            }
-            Console.WriteLine("klart!");
+            List<Person> Dict = LoadAddressList();
 
             Console.WriteLine("Hej och välkommen till adresslistan");
             Console.WriteLine("Skriv 'sluta' för att sluta!");
@@ -120,6 +105,26 @@ namespace DLTP_assignment_2
                     Console.WriteLine("Okänt kommando: {0}", command);
                 }
             } while (command != "sluta");
+        }
+
+        private static List<Person> LoadAddressList()
+        {
+            Console.Write("Laddar adresslistan ... ");
+            List<Person> Dict = new List<Person>();
+            using (StreamReader fileStream = new StreamReader(@"..\..\address.lis"))
+            {
+                while (fileStream.Peek() >= 0)
+                {
+                    string line = fileStream.ReadLine();
+                    // Console.WriteLine(line);
+                    string[] word = line.Split('#');
+                    // Console.WriteLine("{0}, {1}, {2}, {3}", word[0], word[1], word[2], word[3]);
+                    Person P = new Person(word[0], word[1], word[2], word[3]);
+                    Dict.Add(P);
+                }
+            }
+            Console.WriteLine("klart!");
+            return Dict;
         }
     }
 }

@@ -14,6 +14,18 @@ namespace DLTP_assignment_2
         {
             namn = N; adress = A; telefon = T; email = E;
         }
+
+        public void Edit(string fieldToChange, string newValue)
+        {
+            switch (fieldToChange)
+            {
+                case "namn": namn = newValue; break;
+                case "adress": adress = newValue; break;
+                case "telefon": telefon = newValue; break;
+                case "email": email = newValue; break;
+                default: break;
+            }
+        }
     }
     class Program
     {
@@ -34,77 +46,90 @@ namespace DLTP_assignment_2
                 }
                 else if (command == "ny")
                 {
-                    Console.WriteLine("Lägger till ny person");
-                    Console.Write("  1. ange namn:    ");
-                    string name = Console.ReadLine();
-                    Console.Write("  2. ange adress:  ");
-                    string adress = Console.ReadLine();
-                    Console.Write("  3. ange telefon: ");
-                    string telefon = Console.ReadLine();
-                    Console.Write("  4. ange email:   ");
-                    string email = Console.ReadLine();
-                    Dict.Add(new Person(name, adress, telefon, email));
+                    AddPersonToList(Dict);
                 }
                 else if (command == "ta bort")
                 {
-                    Console.Write("Vem vill du ta bort (ange namn): ");
-                    string villTaBort = Console.ReadLine();
-                    int found = -1;
-                    for (int i = 0; i < Dict.Count(); i++)
-                    {
-                        if (Dict[i].namn == villTaBort) found = i;
-                    }
-                    if (found == -1)
-                    {
-                        Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", villTaBort);
-                    }
-                    else
-                    {
-                        Dict.RemoveAt(found);
-                    }
+                    RemovePersonFromList(Dict);
                 }
                 else if (command == "visa")
                 {
-                    for (int i = 0; i < Dict.Count(); i++)
-                    {
-                        Person P = Dict[i];
-                        Console.WriteLine("{0}, {1}, {2}, {3}", P.namn, P.adress, P.telefon, P.email);
-                    }
+                    PrintAddressList(Dict);
                 }
                 else if (command == "ändra")
                 {
-                    Console.Write("Vem vill du ändra (ange namn): ");
-                    string villÄndra = Console.ReadLine();
-                    int found = -1;
-                    for (int i = 0; i < Dict.Count(); i++)
-                    {
-                        if (Dict[i].namn == villÄndra) found = i;
-                    }
-                    if (found == -1)
-                    {
-                        Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", villÄndra);
-                    }
-                    else
-                    {
-                        Console.Write("Vad vill du ändra (namn, adress, telefon eller email): ");
-                        string fältAttÄndra = Console.ReadLine();
-                        Console.Write("Vad vill du ändra {0} på {1} till: ", fältAttÄndra, villÄndra);
-                        string nyttVärde = Console.ReadLine();
-                        switch (fältAttÄndra)
-                        {
-                            case "namn": Dict[found].namn = nyttVärde; break;
-                            case "adress": Dict[found].adress = nyttVärde; break;
-                            case "telefon": Dict[found].telefon = nyttVärde; break;
-                            case "email": Dict[found].email = nyttVärde; break;
-                            default: break;
-                        }
-                    }
+                    ChangePersonInList(Dict);
                 }
                 else
                 {
                     Console.WriteLine("Okänt kommando: {0}", command);
                 }
             } while (command != "sluta");
+        }
+
+        private static void ChangePersonInList(List<Person> Dict)
+        {
+            Console.Write("Vem vill du ändra (ange namn): ");
+            string villÄndra = Console.ReadLine();
+            int found = -1;
+            for (int i = 0; i < Dict.Count(); i++)
+            {
+                if (Dict[i].namn == villÄndra) found = i;
+            }
+            if (found == -1)
+            {
+                Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", villÄndra);
+            }
+            else
+            {
+                Console.Write("Vad vill du ändra (namn, adress, telefon eller email): ");
+                string fältAttÄndra = Console.ReadLine();
+                Console.Write("Vad vill du ändra {0} på {1} till: ", fältAttÄndra, villÄndra);
+                string nyttVärde = Console.ReadLine();
+                Dict[found].Edit(fältAttÄndra, nyttVärde);
+            }
+        }
+
+        private static void PrintAddressList(List<Person> Dict)
+        {
+            for (int i = 0; i < Dict.Count(); i++)
+            {
+                Person P = Dict[i];
+                Console.WriteLine("{0}, {1}, {2}, {3}", P.namn, P.adress, P.telefon, P.email);
+            }
+        }
+
+        private static void RemovePersonFromList(List<Person> Dict)
+        {
+            Console.Write("Vem vill du ta bort (ange namn): ");
+            string villTaBort = Console.ReadLine();
+            int found = -1;
+            for (int i = 0; i < Dict.Count(); i++)
+            {
+                if (Dict[i].namn == villTaBort) found = i;
+            }
+            if (found == -1)
+            {
+                Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", villTaBort);
+            }
+            else
+            {
+                Dict.RemoveAt(found);
+            }
+        }
+
+        private static void AddPersonToList(List<Person> Dict)
+        {
+            Console.WriteLine("Lägger till ny person");
+            Console.Write("  1. ange namn:    ");
+            string name = Console.ReadLine();
+            Console.Write("  2. ange adress:  ");
+            string adress = Console.ReadLine();
+            Console.Write("  3. ange telefon: ");
+            string telefon = Console.ReadLine();
+            Console.Write("  4. ange email:   ");
+            string email = Console.ReadLine();
+            Dict.Add(new Person(name, adress, telefon, email));
         }
 
         private static List<Person> LoadAddressList()

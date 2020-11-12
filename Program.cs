@@ -2,51 +2,48 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DLTP_assignment_2
 {
     class Person
     {
-        public string namn, adress, telefon, email;
+        public string name, address, phone, email;
 
         public Person()
         {
-            Console.WriteLine("Lägger till ny person");
             Console.Write("  1. ange namn:    ");
-            namn = Console.ReadLine();
+            name = Console.ReadLine();
             Console.Write("  2. ange adress:  ");
-            adress = Console.ReadLine();
+            address = Console.ReadLine();
             Console.Write("  3. ange telefon: ");
-            telefon = Console.ReadLine();
+            phone = Console.ReadLine();
             Console.Write("  4. ange email:   ");
             email = Console.ReadLine();
         }
         public Person(string N, string A, string T, string E)
         {
-            namn = N; adress = A; telefon = T; email = E;
+            name = N; address = A; phone = T; email = E;
         }
 
-        public void Edit(string fieldToChange, string newValue)
+        public void EditField(string fieldToChange, string newValue)
         {
             switch (fieldToChange)
             {
-                case "namn": namn = newValue; break;
-                case "adress": adress = newValue; break;
-                case "telefon": telefon = newValue; break;
+                case "namn": name = newValue; break;
+                case "adress": address = newValue; break;
+                case "telefon": phone = newValue; break;
                 case "email": email = newValue; break;
-                default: break;
+                default: Console.WriteLine($"Fel: Fältet {fieldToChange} existerar inte."); break;
             }
         }
         public void Print()
         {
-            Console.WriteLine("{0}, {1}, {2}, {3}", namn, adress, telefon, email);
+            Console.WriteLine("{0}, {1}, {2}, {3}", name, address, phone, email);
         }
     }
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             List<Person> Dict = LoadAddressList();
 
@@ -63,7 +60,9 @@ namespace DLTP_assignment_2
                 }
                 else if (command == "ny")
                 {
-                    Dict.Add(new Person()); //Note: The default constructor will ask for user input. 
+                    Console.WriteLine("Lägger till ny person...");
+                    Dict.Add(new Person()); //Note: The default constructor will ask for user input.
+                    Console.WriteLine("Klart.");
                 }
                 else if (command == "ta bort")
                 {
@@ -87,23 +86,23 @@ namespace DLTP_assignment_2
         private static void ChangePersonInList(List<Person> Dict)
         {
             Console.Write("Vem vill du ändra (ange namn): ");
-            string villÄndra = Console.ReadLine();
+            string personToChange = Console.ReadLine();
             int found = -1;
             for (int i = 0; i < Dict.Count(); i++)
             {
-                if (Dict[i].namn == villÄndra) found = i;
+                if (Dict[i].name == personToChange) found = i;
             }
             if (found == -1)
             {
-                Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", villÄndra);
+                Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", personToChange);
             }
             else
             {
                 Console.Write("Vad vill du ändra (namn, adress, telefon eller email): ");
-                string fältAttÄndra = Console.ReadLine();
-                Console.Write("Vad vill du ändra {0} på {1} till: ", fältAttÄndra, villÄndra);
-                string nyttVärde = Console.ReadLine();
-                Dict[found].Edit(fältAttÄndra, nyttVärde);
+                string fieldToChange = Console.ReadLine();
+                Console.Write("Vad vill du ändra {0} på {1} till: ", fieldToChange, personToChange);
+                string newValue = Console.ReadLine();
+                Dict[found].EditField(fieldToChange, newValue);
             }
         }
 
@@ -118,15 +117,15 @@ namespace DLTP_assignment_2
         private static void RemovePersonFromList(List<Person> Dict)
         {
             Console.Write("Vem vill du ta bort (ange namn): ");
-            string villTaBort = Console.ReadLine();
+            string personToRemove = Console.ReadLine();
             int found = -1;
             for (int i = 0; i < Dict.Count(); i++)
             {
-                if (Dict[i].namn == villTaBort) found = i;
+                if (Dict[i].name == personToRemove) found = i;
             }
             if (found == -1)
             {
-                Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", villTaBort);
+                Console.WriteLine("Tyvärr: {0} fanns inte i telefonlistan", personToRemove);
             }
             else
             {
